@@ -55,7 +55,9 @@ describe AmplitudeAPI::Event do
           "ip" => "127.0.0.1",
           "platform" => "Web",
           "country" => "United States",
-          "insert_id" => "bestId"
+          "insert_id" => "bestId",
+          "location_lat" => 16.88,
+          "location_lng" => 31.17
         )
 
         expect(event.to_hash).to eq(event_type: "sausage",
@@ -67,7 +69,9 @@ describe AmplitudeAPI::Event do
                                     ip: "127.0.0.1",
                                     platform: "Web",
                                     country: "United States",
-                                    insert_id: "bestId")
+                                    insert_id: "bestId",
+                                    location_lat: 16.88,
+                                    location_lng: 31.17)
       end
 
       it "accepts symbol attributes" do
@@ -82,7 +86,9 @@ describe AmplitudeAPI::Event do
           ip: "127.0.0.1",
           platform: "Web",
           country: "United States",
-          insert_id: "bestId"
+          insert_id: "bestId",
+          location_lat: 16.88,
+          location_lng: 31.17
         )
 
         expect(event.to_hash).to eq(event_type: "sausage",
@@ -94,7 +100,9 @@ describe AmplitudeAPI::Event do
                                     ip: "127.0.0.1",
                                     platform: "Web",
                                     country: "United States",
-                                    insert_id: "bestId")
+                                    insert_id: "bestId",
+                                    location_lat: 16.88,
+                                    location_lng: 31.17)
       end
     end
 
@@ -251,6 +259,44 @@ describe AmplitudeAPI::Event do
           event_type: "clicked on home"
         )
         expect(event.to_hash).not_to have_key(:country)
+      end
+    end
+
+    describe "location_lat" do
+      it "includes the location_lat for the event" do
+        event = described_class.new(
+          user_id: 123,
+          event_type: "clicked on home",
+          location_lat: 16.88
+        )
+        expect(event.to_hash[:location_lat]).to eq(16.88)
+      end
+
+      it "does not include the location_lat if it is not set" do
+        event = described_class.new(
+          user_id: 123,
+          event_type: "clicked on home"
+        )
+        expect(event.to_hash).not_to have_key(:location_lat)
+      end
+    end
+
+    describe "location_lng" do
+      it "includes the location_lng for the event" do
+        event = described_class.new(
+          user_id: 123,
+          event_type: "clicked on home",
+          location_lng: 31.17
+        )
+        expect(event.to_hash[:location_lng]).to eq(31.17)
+      end
+
+      it "does not include the location_lng if it is not set" do
+        event = described_class.new(
+          user_id: 123,
+          event_type: "clicked on home"
+        )
+        expect(event.to_hash).not_to have_key(:location_lng)
       end
     end
 
