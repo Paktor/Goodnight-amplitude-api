@@ -43,6 +43,11 @@ describe AmplitudeAPI::Identification do
       expect(identification.to_hash[:device_id]).to eq("abc")
     end
 
+    it "includes the platform" do
+      identification = described_class.new(user_id: 123, device_id: "abc", platform: "iOS")
+      expect(identification.to_hash[:platform]).to eq("iOS")
+    end
+
     it "includes arbitrary user properties" do
       identification = described_class.new(
         user_id: 123,
