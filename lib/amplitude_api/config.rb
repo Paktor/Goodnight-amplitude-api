@@ -34,6 +34,7 @@ class AmplitudeAPI
           location_lat location_lng
           idfa idfv adid android_id
           event_id session_id
+          location_lat location_lng
         ]
       end
 
